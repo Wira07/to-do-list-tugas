@@ -40,10 +40,51 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        taskAdapter = TaskAdapter(taskList)
+        taskAdapter = TaskAdapter(
+            taskList,
+            onItemClicked = { task ->
+                // Navigate to TaskDetailActivity and pass the task ID
+                val intent = Intent(this, TaskDetailActivity::class.java).apply {
+                    putExtra("TASK_ID", task.id) // Pass the task ID
+                }
+                startActivity(intent)
+            },
+            onItemDeleted = { task ->
+                deleteTask(task)
+            }
+        )
         binding.taskRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.taskRecyclerView.adapter = taskAdapter
     }
+
+    private fun deleteTask(task: Task) {
+        // Contoh token (ambil dari autentikasi pengguna atau penyimpanan lokal)
+        val token = "Bearer your-auth-token"
+
+        Log.d("DeleteTask", "Menghapus tugas dengan ID: ${task.id}")
+        RetrofitClient.instance.deleteTask(token, task.id).enqueue(object : Callback<Map<String, String>> {
+            override fun onResponse(call: Call<Map<String, String>>, response: Response<Map<String, String>>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@MainActivity, "Tugas berhasil dihapus", Toast.LENGTH_SHORT).show()
+                    taskAdapter.removeTask(task) // Hapus dari adapter
+                } else {
+                    Log.e("DeleteTask", "Error: ${response.code()} - ${response.message()}")
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Gagal menghapus tugas. Kode: ${response.code()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Map<String, String>>, t: Throwable) {
+                Log.e("DeleteTask", "Failure: ${t.message}", t)
+                Toast.makeText(this@MainActivity, "Gagal menghapus tugas", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
 
     private fun setupButtonListener() {
         binding.addTaskButton.setOnClickListener {
@@ -71,11 +112,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> true
-                R.id.navigation_library -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
                 R.id.navigation_profile -> {
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)

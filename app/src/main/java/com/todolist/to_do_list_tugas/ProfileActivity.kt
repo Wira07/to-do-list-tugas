@@ -41,11 +41,6 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.navigation_library -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
                 R.id.navigation_profile -> {
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
