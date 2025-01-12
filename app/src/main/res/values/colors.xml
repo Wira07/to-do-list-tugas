@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primarydark">#000000</color>
+    <color name="gray_light">#A0A0A0</color>
+    <color name="colorPrimary">#002AFF</color>
+    <color name="headings">#000000</color>
+    <color name="grey">#929292</color>
+    <color name="blue">#673AB7</color>
+    <color name="circleBorder">#009688</color>
+</resources>

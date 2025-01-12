@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+
+    <!-- TextView untuk Judul -->
+    <TextView
+        android:id="@+id/sampleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Daftar Tugas"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:textColor="#333333"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentTop="true" />
+
+    <!-- Input untuk tugas -->
+    <EditText
+        android:id="@+id/inputTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan tugas"
+        android:padding="12dp"
+        android:layout_margin="18dp"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="#333333"
+        android:textColorHint="#999999"
+        android:layout_below="@id/sampleTextView"
+        android:layout_marginBottom="12dp" />
+
+    <!-- RecyclerView untuk Daftar Tugas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/taskRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/addTaskButton"
+        android:layout_below="@id/inputTask"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="4dp"
+        tools:listitem="@layout/item_task"
+        android:padding="8dp" />
+
+    <!-- Button -->
+    <Button
+        android:id="@+id/addTaskButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah Tugas"
+        android:textColor="#FFFFFF"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="140dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_button" /> <!-- Background color added -->
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@color/primarydark"
+        app:itemTextColor="@color/primarydark"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_item" />
+
+</RelativeLayout>
